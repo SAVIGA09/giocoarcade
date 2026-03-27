@@ -21,9 +21,18 @@
     <ClCompile Include="Nemico.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Navicella.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="main_Navicella.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nemico.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Navicella.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
