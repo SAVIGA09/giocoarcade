@@ -1,2 +1,2 @@
-# giocoarcade
-repository per il progetto con le classi per la creazione del nostro gioco arcade
+# Space Invaders - Progetto Di Gruppo
+Repository dedicata al progetto con le classi per la creazione del nostro gioco arcade.
