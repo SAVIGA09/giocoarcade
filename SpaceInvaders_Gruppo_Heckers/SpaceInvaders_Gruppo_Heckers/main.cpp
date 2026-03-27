@@ -23,9 +23,9 @@ int main() {
 		//si continua lo shift delle posizione degli alieni in concomitanza al fatto che sparano colpi
 
 		countSpara++;
-		
+
 	}
 	//serve sfruttare il gothit e poi il successivo unalive per valutare se l'alieno viene eliminato o meno 
-	
+
 	return 0;
 }

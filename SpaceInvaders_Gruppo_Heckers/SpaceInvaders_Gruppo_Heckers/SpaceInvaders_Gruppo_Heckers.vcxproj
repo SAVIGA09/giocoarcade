@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2e3319d1-f5e8-4aa6-bd8f-c17ce67cb448}</ProjectGuid>
-    <RootNamespace>SpaceInvadersFattoDaPippati</RootNamespace>
+    <ProjectGuid>{d0566435-82bb-4c94-b135-fc87573d8345}</ProjectGuid>
+    <RootNamespace>SpaceInvadersGruppoHeckers</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>SpaceInvaders_Gruppo_Heckers</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -125,6 +124,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Nemico.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Nemico.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
