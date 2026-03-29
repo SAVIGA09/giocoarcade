@@ -1,31 +1,33 @@
+#pragma once
 #include <string>
 #include <windows.h>
-#include <gdiplus.h> //sempre per trasformare i dati in qualcosa che si puo vedere a schermo
-#include "Nemico.h"
+#include <gdiplus.h> //per trasformare i dati in qualcosa che si puo vedere a schermo
 using namespace std;
 using namespace Gdiplus;
 
-int main() {
-	Nemico n1 = Nemico(100, 100, 20, 20, "alieno", Color::Red);
-	Nemico n2 = Nemico(100, 200, 20, 20, "alieno", Color::Blue); //dichiarazione ipotetica degli alieni nemici
+class Nemico
+{
+private: //dichiarazione variabili private
+	int x;
+	int y;
+	int width;
+	int height;
+	int phase;
+	string type;
+	Color color;
+	bool isAlive;
 
-	// inizia lo shift automatico degli alieni 
-	//il countspara parte da 0 perche non si sta iniziando a sparare e poi si aggiorna nel while
-	int countSpara = 0;
-
-	while (true) {
-
-		n1.SpostatiESpara();
-		n2.SpostatiESpara();
-
-		Sleep(100);//si rallenta il ciclo 
-
-		//si continua lo shift delle posizione degli alieni in concomitanza al fatto che sparano colpi
-
-		countSpara++;
-
-	}
-	//serve sfruttare il gothit e poi il successivo unalive per valutare se l'alieno viene eliminato o meno 
-
-	return 0;
-}
+public:
+	//dichiarazione costruttore nemico e metodi da utilizzare e definire
+	Nemico();
+	Nemico(int x, int y, int height, int width, string type, Color color);
+	void GotHit();
+	bool Unalive();
+	void ShiftSx(int pixel);
+	void ShiftDx(int pixel);
+	void ShiftUp(int pixel);
+	void ShiftDown(int pixel);
+	void Shift();
+	void ChangePhase();
+	void Shoot();
+};

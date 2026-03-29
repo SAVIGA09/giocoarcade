@@ -125,12 +125,15 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_Navicella.cpp" />
+    <ClCompile Include="main_proiettili.cpp" />
     <ClCompile Include="Navicella.cpp" />
     <ClCompile Include="Nemico.cpp" />
+    <ClCompile Include="proiettili.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Navicella.h" />
     <ClInclude Include="Nemico.h" />
+    <ClInclude Include="proiettili.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
