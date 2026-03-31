@@ -27,7 +27,7 @@ void Nemico::GotHit() {
     this->isAlive = false; // Se l'alieno viene colpito lo stato isAlive diventa falso
 }
 
-bool Nemico::Unalive() {
+bool Nemico::VivoOMorto() {
 
     if (this->isAlive == false) {  //se isAlive e' falso vuol dire che l'alieno e' stato eliminato e quindi unalive e' vero
         return true;
@@ -36,27 +36,27 @@ bool Nemico::Unalive() {
         return false;
     }
 }
-void Nemico::ShiftSx(int pixel) {
+void Nemico::SpostatiSinistra(int pixel) {
 
     this->x -= pixel;   // spostamento verso sinistra e quindi diminuisco la coordinata x di quanti pixel mi ha detto l'utente
 }
 
-void Nemico::ShiftDx(int pixel) {
+void Nemico::SpostatiDestra(int pixel) {
 
     this->x += pixel; // spostamento verso destra e quindi aggiungo alla coordinata x quanti pixel mi ha detto l'utente
 }
 
-void Nemico::ShiftUp(int pixel) {
+void Nemico::SpostatiSopra(int pixel) {
 
     this->y -= pixel;  // spostamento verso l'alto e quindi diminuisco la coordinata y di quanti pixel mi ha detto l'utente
 }
 
-void Nemico::ShiftDown(int pixel) {
+void Nemico::SpostatiSotto(int pixel) {
 
     this->y += pixel;    // spostamento verso il basso e quindi aggiungo alla coordinata y quanti pixel mi ha detto l'utente
 }
 
-void Nemico::Shift() {
+void Nemico::Spostatmento() {
     // esempio di automatismo tipo l'alieno cambia fase ogni volta che si muove tipo destra-sinistra la fase cambia
     //pero da pensare in altre maniere anche senno si sfruttano gli shift ma sono tante piu righe da scrivere
     this->ChangePhase();
@@ -72,7 +72,7 @@ void Nemico::ChangePhase() {
     }
 }
 
-void Nemico::Shoot() {
+void Nemico::Spara() {
 
     if (this->isAlive) {   // logica per lo sparo e sarebbe da mettere un oggetto proiettile per permettere all'alieno di sparare alla navicella
         // e qui serve la logica per lo sparo che e' solo grafica
