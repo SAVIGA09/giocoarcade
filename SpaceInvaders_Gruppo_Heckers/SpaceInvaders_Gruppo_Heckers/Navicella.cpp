@@ -51,9 +51,13 @@ void Navicella::getPosizione(int& x, int& y)
 void Navicella::limitaMovimento(int larghezza)
 {
     if (this->posX < 0)
+    {
         this->posX = 0;
+    }
     else if (this->posX > larghezza)
+    {
         this->posX = larghezza;
+    }
 }
 
 // stato Navicella
@@ -79,7 +83,18 @@ bool Navicella::isAttiva()
 
 void Navicella::setIntegrita(int integrita)
 {
-    this->integrita = integrita;
+    if (integrita < 0)
+    {
+        this->integrita = 0;
+    }
+    else if(integrita > 100)
+    {
+        this->integrita = 100;
+    }
+    else
+    {
+        this->integrita = integrita;
+    }
 }
 
 int Navicella::getIntegrita()
@@ -90,7 +105,14 @@ int Navicella::getIntegrita()
 // munizioni
 bool Navicella::puoSparare()
 {
-    return (this->munizioni > 0 && this->cooldownSparo == 0);
+    if (this->munizioni > 0 && this->cooldownSparo == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void Navicella::spara()
@@ -131,7 +153,6 @@ void Navicella::aggiorna()
     {
         this->cooldownSparo--;
     }
-
     if (this->tempoPotenziamento > 0)
     {
         this->tempoPotenziamento--;
