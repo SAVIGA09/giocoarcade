@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include "asteroidi.h"
 
 using namespace std;
@@ -26,3 +26,4 @@ int main() {
 
     return 0;
 }
+*/

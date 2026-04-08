@@ -1,14 +1,11 @@
 #include "proiettili.h"
-
-
-
 float Proiettile::getX()
 {
-    this->x;
+    return this->x;
 }
 float Proiettile::getY()
 {
-    this->y;
+   return this->y;
 }
 //serve per controllare se ha toccato l'alieno
 bool Proiettile::isAttivo()
@@ -18,11 +15,11 @@ bool Proiettile::isAttivo()
 // Implementazione del Costruttore
 
 Proiettile::Proiettile(float XdiPartenza, float YdiPartenza, int direzione) {
-    x = XdiPartenza;
-    y = YdiPartenza;
-    direzione = direzione;
-    velocita = 5.0;    // Puoi regolare questo valore per la difficoltà
-    attivo = true;
+    this->x = XdiPartenza;
+    this->y = YdiPartenza;
+    this-> direzione = direzione;
+   this-> velocita = 5.0;    // Puoi regolare questo valore per la difficoltà
+   this-> attivo = true;
 }
 
 // Implementazione del movimento

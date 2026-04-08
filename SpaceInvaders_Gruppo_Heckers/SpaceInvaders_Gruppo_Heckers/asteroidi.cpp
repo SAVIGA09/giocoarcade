@@ -9,15 +9,14 @@ Asteroidi::Asteroidi()
 
 bool Asteroidi::asteroideColpito(int xColpo, int yColpo)
 {
-	int contatore = 0;
+
 	if (xColpo == this->xAsteroide && yColpo == this->yAsteroide)
 	{
-		contatore++;
+		this->distrutto = true; // Segna come distrutto
+		return true;            // Comunica al main che è stato colpito
 	}
-	if (contatore == 2)
-	{
-		this->distrutto = true;
-	}
+
+	return false; // Altrimenti ritorna falso
 }
 
 void Asteroidi::setRotto()
@@ -31,6 +30,6 @@ void Asteroidi::setRotto()
 
 void Asteroidi::setCoordinate(char forma, int colonna, int riga)
 {
-	this->xAsteroide = riga;
-	this->yAsteroide = colonna;
+		this->xAsteroide = colonna; // La colonna è la X
+		this->yAsteroide = riga;    // La riga è la Y
 }
