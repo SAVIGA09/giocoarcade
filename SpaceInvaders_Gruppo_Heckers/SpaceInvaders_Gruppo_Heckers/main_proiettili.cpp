@@ -1,20 +1,24 @@
-#include <iostream>
+/*#include <iostream>
 #include "proiettili.h"
+
 using namespace std;
 
 int main() {
-    // Creiamo un proiettile che parte da x=10, y=10 e va verso l'alto (direzione -1)
-    Proiettile p(10, 10, -1);
+    Proiettile p(10.0, 10.0, -1);
 
-    cout << "Partenza proiettile..." << std::endl;
+    cout << "--- TEST PROIETTILE ---" << endl;
 
-    // Lo facciamo muovere per 5 volte e vediamo dove va
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
         p.aggiorna();
-        cout << "Posizione attuale Y: " << p.getY() << endl;
-        cout << "Posizione attuale X: " << p.getX() << endl;
 
+        if (p.isAttivo() == true) {
+            cout << "Turno " << i + 1 << " - Posizione Y: " << p.getY() << endl;
+        } else {
+            cout << "Proiettile distrutto o fuori schermo!" << endl;
+            break; 
+        }
     }
 
     return 0;
 }
+*/

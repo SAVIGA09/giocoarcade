@@ -1,19 +1,27 @@
 #include "proiettili.h"
 
 float Proiettile::getX() {
-    return x;
+    return this->x;
 }
 
 float Proiettile::getY() {
-    return y;
+    return this->y;
 }
 
 bool Proiettile::isAttivo() {
-    return attivo;
+    return this->attivo;
 }
 
 int Proiettile::getDanno() {
-    return danno;
+    return this->danno;
+}
+
+float Proiettile::getVelocita() {
+    return this->velocita;
+}
+
+int Proiettile::getDirezione() {
+    return this->direzione;
 }
 
 Proiettile::Proiettile() {
@@ -35,19 +43,20 @@ Proiettile::Proiettile(float XdiPartenza, float YdiPartenza, int direzione) {
 }
 
 void Proiettile::aggiorna() {
+
     // invece di uscire subito mettiamo tutto dentro l'if
-    if (attivo == true) {
+    if (this->attivo == true) {
 
         // calcoliamo il movimento
-        y = y + (velocita * direzione);
+        this->y = this->y + (this->velocita * this->direzione);
 
         // controlliamo se è uscito sopra o sotto
-        if (y < 0) {
-            attivo = false;
+        if (this->y < 0) {
+            this->attivo = false;
         }
         else {
-            if (y > 600) {
-                attivo = false;
+            if (this->y > 600) {
+                this->attivo = false;
             }
         }
     }

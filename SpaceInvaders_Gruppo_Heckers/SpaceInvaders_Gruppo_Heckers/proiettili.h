@@ -10,26 +10,19 @@ private:
     bool attivo;
 
 public:
-    float getX();
-    float getY();
-    bool isAttivo();
-    int getDanno();
     // Costruttori
     Proiettile();
     Proiettile(float XdiPartenza, float YdiPartenza, int direzione);
-    Proiettile(float XdiPartenza, float YdiPartenza, int direzione, int danno);
 
-    // Aggiorna posizione
+    // metodi principali
     void aggiorna();
-
-    // Getter
-    float getX() ;
-    float getY() ;
-    float getVelocita() ;
-    int getDirezione() ;
-    int getDanno() ;
-    bool isAttivo() ;
-
-    // Azioni
     void distruggi();
+
+    // Getter 
+    float getX();
+    float getY();
+    float getVelocita();
+    int getDirezione();
+    int getDanno();
+    bool isAttivo();
 };

@@ -66,7 +66,7 @@ int main() {
 
         if (i == 9) { //sparo proiettile da parte del nemico al ciclo 10
 
-            colpoNemico = Proiettile((int)alieno.getX(), (int)alieno.getY(), 1); // li metto in concomitanza da dove sta l'alieno
+            colpoNemico = Proiettile(alieno.getX(), alieno.getY(), 1); // li metto in concomitanza da dove sta l'alieno
             cout << "Colpo del Nemico: Attacco alla navicella, Proiettile sparato! " << endl;
         }
         if (colpoNemico.isAttivo()) {
@@ -78,7 +78,7 @@ int main() {
             player.getPosizione(px, py); // prendo posizione della navicella per vedere se il colpo dell'alieno prende il giocatore
 
             
-             if (colpoNemico.getX() == px && colpoNemico.getY() >= py && colpoNemico.getY() <= py + 5) {  // se le coordinate x e y coincidono il colpo ha beccato la navicella
+             if (colpoNemico.getX() >= (px - 5) && colpoNemico.getX() <= (px + 5) && colpoNemico.getY() >= py && colpoNemico.getY() <= py + 5) {  // se le coordinate x e y coincidono il colpo ha beccato la navicella
                  // ho dovuto qua mettere un margine di errore perche senno con il == era difficilissimo beccare la situazione in cui sono uguali 
                 cout << "Giocatore Beccato" << endl;
                 cout << "NAVICELLA COLPITA DAL NEMICO" << endl;

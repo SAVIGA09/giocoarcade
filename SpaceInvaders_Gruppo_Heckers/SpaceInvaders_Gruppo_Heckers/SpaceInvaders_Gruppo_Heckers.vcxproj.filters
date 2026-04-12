@@ -47,10 +47,10 @@
     <ClInclude Include="Navicella.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="proiettili.h">
+    <ClInclude Include="asteroidi.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="asteroidi.h">
+    <ClInclude Include="proiettili.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
