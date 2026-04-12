@@ -23,12 +23,12 @@ public:
     void aggiorna();
 
     // Getter
-    float getX() const;
-    float getY() const;
-    float getVelocita() const;
-    int getDirezione() const;
-    int getDanno() const;
-    bool isAttivo() const;
+    float getX() ;
+    float getY() ;
+    float getVelocita() ;
+    int getDirezione() ;
+    int getDanno() ;
+    bool isAttivo() ;
 
     // Azioni
     void distruggi();
