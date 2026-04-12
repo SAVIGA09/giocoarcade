@@ -2,7 +2,8 @@
 
 class Proiettile {
 private:
-    float x, y;
+    float x;
+    float y;
     float velocita;
     int direzione;
     int danno;          
@@ -14,13 +15,14 @@ public:
     bool isAttivo();
     int getDanno();
     Proiettile();
-    Proiettile(float XdiPartenza, float YdiPartenza, int direzione, int danno = 1);
     Proiettile(float XdiPartenza, float YdiPartenza, int direzione);
+    Proiettile(int XdiPartenza, int YdiPartenza, int direzione);
+
+    // Muove il proiettile in base alla velocità e direzione
     void aggiorna();
     float getX() const;
     float getY() const;
     bool isAttivo() const;
-    int getDanno() const; 
 
     void distruggi();
 };

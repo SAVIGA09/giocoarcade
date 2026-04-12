@@ -33,6 +33,12 @@
     <ClCompile Include="main_proiettili.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="asteroidi.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="main_asteroidi.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nemico.h">
@@ -42,6 +48,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="proiettili.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroidi.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
