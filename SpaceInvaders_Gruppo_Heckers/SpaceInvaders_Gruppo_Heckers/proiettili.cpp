@@ -1,44 +1,59 @@
 #include "proiettili.h"
 
-
-
-float Proiettile::getX()
-{
-    this->x;
+float Proiettile::getX() {
+    return x;
 }
-float Proiettile::getY()
-{
-    this->y;
+
+float Proiettile::getY() {
+    return y;
 }
-//serve per controllare se ha toccato l'alieno
-bool Proiettile::isAttivo()
-{
+
+bool Proiettile::isAttivo() {
     return attivo;
 }
-// Implementazione del Costruttore
+
+int Proiettile::getDanno() {
+    return danno;
+}
+
+Proiettile::Proiettile() {
+    this->x = 0;
+    this->y = 0;
+    this->direzione = 0;
+    this->velocita = 5.0;
+    this->danno = 1;
+    this->attivo = false;
+}
 
 Proiettile::Proiettile(float XdiPartenza, float YdiPartenza, int direzione) {
-    x = XdiPartenza;
-    y = YdiPartenza;
-    direzione = direzione;
-    velocita = 5.0;    // Puoi regolare questo valore per la difficoltà
-    attivo = true;
+    this->x = XdiPartenza;
+    this->y = YdiPartenza;
+    this->direzione = direzione;
+    this->velocita = 5.0;
+    this->danno = 1;
+    this->attivo = true;
 }
 
-// Implementazione del movimento
 void Proiettile::aggiorna() {
-    if (!attivo) return;
+    // invece di uscire subito mettiamo tutto dentro l'if
+    if (attivo == true) {
 
-    // Modifica la Y: se dir è -1 sale, se è 1 scende
-    y += velocita * direzione;
+        // calcoliamo il movimento
+        y = y + (velocita * direzione);
 
-    // Controllo bordi (esempio: schermo alto 600 pixel)
-    if (y < 0 || y > 600) {
-        attivo = false;
+        // controlliamo se è uscito sopra o sotto
+        if (y < 0) {
+            attivo = false;
+        }
+        else {
+            if (y > 600) {
+                attivo = false;
+            }
+        }
     }
+    // se attivo è false il programma semplicemente non entra nel blocco e non fa nulla
 }
 
-// Implementazione della distruzione
 void Proiettile::distruggi() {
-    attivo = false;
+    this->attivo = false;
 }
