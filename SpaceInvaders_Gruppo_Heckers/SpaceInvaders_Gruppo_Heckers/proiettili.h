@@ -5,8 +5,8 @@ private:
     float x;
     float y;
     float velocita;
-    int direzione;
-    int danno;          
+    int direzione; // -1 per salire (Player), 1 per scendere (Alieni)
+    int danno;
     bool attivo;
 
 public:
@@ -14,15 +14,22 @@ public:
     float getY();
     bool isAttivo();
     int getDanno();
+    // Costruttori
     Proiettile();
     Proiettile(float XdiPartenza, float YdiPartenza, int direzione);
-    Proiettile(int XdiPartenza, int YdiPartenza, int direzione);
+    Proiettile(float XdiPartenza, float YdiPartenza, int direzione, int danno);
 
-    // Muove il proiettile in base alla velocità e direzione
+    // Aggiorna posizione
     void aggiorna();
+
+    // Getter
     float getX() const;
     float getY() const;
+    float getVelocita() const;
+    int getDirezione() const;
+    int getDanno() const;
     bool isAttivo() const;
 
+    // Azioni
     void distruggi();
 };
