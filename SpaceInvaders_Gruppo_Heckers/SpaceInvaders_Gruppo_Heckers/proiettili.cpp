@@ -1,9 +1,10 @@
 #include "proiettili.h"
-float Proiettile::getX()
+
+int Proiettile::getX()
 {
     return this->x;
 }
-float Proiettile::getY()
+int Proiettile::getY()
 {
    return this->y;
 }
@@ -14,12 +15,12 @@ bool Proiettile::isAttivo()
 }
 // Implementazione del Costruttore
 
-Proiettile::Proiettile(float XdiPartenza, float YdiPartenza, int direzione) {
+Proiettile::Proiettile(int XdiPartenza, int YdiPartenza, int direzione) {
     this->x = XdiPartenza;
     this->y = YdiPartenza;
     this-> direzione = direzione;
-   this-> velocita = 5.0;    // Puoi regolare questo valore per la difficoltà
-   this-> attivo = true;
+    this->velocita = 5;    // Puoi regolare questo valore per la difficoltà
+    this-> attivo = true;
 }
 
 // Implementazione del movimento

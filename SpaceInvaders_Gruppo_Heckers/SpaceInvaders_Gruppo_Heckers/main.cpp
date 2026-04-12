@@ -25,9 +25,10 @@ int main() {
     cout << "PROTOTIPO GRUPPO HECKERS" << endl;
 
 
-    for (int i = 0; i < 20; i++) {  // 20 cicli giusto per vedere se va o no
+    for (int i = 0; i < 30; i++) {  // 20 cicli giusto per vedere se va o no
         cout << "ciclo " << i << "" << endl;
 
+        player.aggiorna(); // per far scendere il cooldown
 
         if (alieno.getX() > limiteDestro || alieno.getX() < limiteSinistro) {  //logica degli alieni
 
@@ -54,7 +55,8 @@ int main() {
 
             
             if (barriera.asteroideColpito((int)colpo.getX(), (int)colpo.getY())) {   // controllo se il proiettile di taha tocca l'asteroide di apuzz
-                  
+                // ho messo il cast perche senno non prende le coordinate giuste e non mi va la collisione
+
                 cout << "ASTEROIDE COLPITO" << endl;   // ho messo il cast perche senno non prende le coordinate giuste e non mi va la collisione
                 cout << "COLLISIONE: l'asteroide e' stato colpito!" << endl;
                 colpo.distruggi(); // il proiettile sparisce
@@ -62,9 +64,9 @@ int main() {
             }
         }
 
-        if (i == 10) { //sparo proiettile da parte del nemico al ciclo 10
+        if (i == 9) { //sparo proiettile da parte del nemico al ciclo 10
 
-            colpoNemico = Proiettile(alieno.getX(), alieno.getY(), 1); // li metto in concomitanza da dove sta l'alieno
+            colpoNemico = Proiettile((int)alieno.getX(), (int)alieno.getY(), 1); // li metto in concomitanza da dove sta l'alieno
             cout << "Colpo del Nemico: Attacco alla navicella, Proiettile sparato! " << endl;
         }
         if (colpoNemico.isAttivo()) {
@@ -76,8 +78,8 @@ int main() {
             player.getPosizione(px, py); // prendo posizione della navicella per vedere se il colpo dell'alieno prende il giocatore
 
             
-            if ((int)colpoNemico.getX() == px && (int)colpoNemico.getY() == py) {  // se le coordinate x e y coincidono il colpo ha beccato la navicella
-                // ho messo il cast perche senno non prende le coordinate giuste e non mi va la collisione
+             if (colpoNemico.getX() == px && colpoNemico.getY() >= py && colpoNemico.getY() <= py + 5) {  // se le coordinate x e y coincidono il colpo ha beccato la navicella
+                 // ho dovuto qua mettere un margine di errore perche senno con il == era difficilissimo beccare la situazione in cui sono uguali 
                 cout << "Giocatore Beccato" << endl;
                 cout << "NAVICELLA COLPITA DAL NEMICO" << endl;
                 player.riceviDanno(20); //diminuisco la vita del player 
