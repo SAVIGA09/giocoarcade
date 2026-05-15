@@ -1,72 +1,134 @@
 #include "GameEngine.h"
 #include <iostream>
 #include <windows.h>
+
 using namespace std;
 
 GameEngine::GameEngine() {
-    // Inizializziamo l'arena
+    inizializza();
+}
+
+void GameEngine::inizializza() {
     this->arena = Arena(640, 480);
+    this->player = Navicella(320, 440, 100, 10);
 
-    // Inizializziamo gli oggetti
-    this->player = Navicella(260, 125, 100, 10);
-    this->alieno = Nemico(110, 100, 30, 30, "Alieno", 0);
+    int indice = 0;
+    for (int r = 0; r < 5; r++) {
+        for (int c = 0; c < 11; c++) {
+            this->alieni[indice] = Nemico(100 + (c * 40), 50 + (r * 30), 30, 30, "Alieno", 10);
+            indice++;
+        }
+    }
 
-    // Inizializziamo la barriera (Apuzz)
-    this->asteroide.setCoordinate('B', 350, 430);
+    for (int i = 0; i < 4; i++) {
+        this->barriere[i].setCoordinate('B', 120 + (i * 130), 380);
+    }
 
     this->colpoPlayer = Proiettile(0, 0, -1);
     this->colpoNemico = Proiettile(0, 0, 1);
-
     this->punteggio = 0;
     this->giocoInCorso = true;
+    this->direzioneAlieni = 1;
 }
 
 bool GameEngine::isTerminato() {
-
-    return !this->player.isAttiva();
+    if (!this->player.isAttiva() || !giocoInCorso) {
+        return true;
+    }
+    return false;
 }
 
 void GameEngine::eseguiCiclo() {
+    if (!giocoInCorso) {
+        return;
+    }
 
     player.aggiorna();
 
-    static int spostamentoX = 15;
-    if (alieno.getX() > arena.getLimiteDestro() || alieno.getX() < arena.getLimiteSinistro()) {
-        spostamentoX *= -1;
-        alieno.Spostati(0, 20);
+    bool cambioDirezione = false;
+    for (int i = 0; i < 55; i++) {
+        if (alieni[i].isAttiva()) {
+            if (alieni[i].getX() > arena.getLimiteDestro() - 40 || alieni[i].getX() < arena.getLimiteSinistro() + 10) {
+                cambioDirezione = true;
+                break;
+            }
+        }
+    }
+
+    if (cambioDirezione) {
+        direzioneAlieni *= -1;
+        for (int i = 0; i < 55; i++) {
+            alieni[i].Spostati(0, 20);
+            if (alieni[i].isAttiva() && alieni[i].getY() > 400) {
+                giocoInCorso = false;
+            }
+        }
     }
     else {
-        alieno.Spostati(spostamentoX, 0);
+        for (int i = 0; i < 55; i++) {
+            alieni[i].Spostati(direzioneAlieni * 10, 0);
+        }
     }
 
-    if (colpoPlayer.isAttivo())
+    if (colpoPlayer.isAttivo()) {
         colpoPlayer.aggiorna();
-    if (colpoNemico.isAttivo())
+    }
+
+    if (colpoNemico.isAttivo()) {
         colpoNemico.aggiorna();
+    }
 
     gestisciCollisioni();
-
     Sleep(100);
 }
 
 void GameEngine::gestisciCollisioni() {
- 
+    // Player contro Nemici
     if (colpoPlayer.isAttivo()) {
-        if (asteroide.asteroideColpito((int)colpoPlayer.getX(), (int)colpoPlayer.getY())) {
-            colpoPlayer.distruggi();
-            asteroide.setRotto();
-            this->punteggio += 10;
+        for (int i = 0; i < 55; i++) {
+            if (alieni[i].isAttiva()) {
+                if (colpoPlayer.getX() >= alieni[i].getX() && colpoPlayer.getX() <= alieni[i].getX() + 30 &&
+                    colpoPlayer.getY() >= alieni[i].getY() && colpoPlayer.getY() <= alieni[i].getY() + 30) {
+
+                    alieni[i].distruggi();
+                    colpoPlayer.distruggi();
+                    punteggio += 10;
+                    break;
+                }
+            }
         }
     }
 
+    // Collisioni Barriere
+    for (int i = 0; i < 4; i++) {
+        if (colpoPlayer.isAttivo()) {
+            if (barriere[i].asteroideColpito((int)colpoPlayer.getX(), (int)colpoPlayer.getY())) {
+                colpoPlayer.distruggi();
+                barriere[i].setRotto();
+            }
+        }
+
+        if (colpoNemico.isAttivo()) {
+            if (barriere[i].asteroideColpito((int)colpoNemico.getX(), (int)colpoNemico.getY())) {
+                colpoNemico.distruggi();
+                barriere[i].setRotto();
+            }
+        }
+    }
+
+    // Nemico contro Player
     if (colpoNemico.isAttivo()) {
         int px, py;
         player.getPosizione(px, py);
-        if (colpoNemico.getX() >= (px - 5) && colpoNemico.getX() <= (px + 5)) {
-            if (colpoNemico.getY() >= py && colpoNemico.getY() <= py + 5) {
+        if (colpoNemico.getX() >= (px - 10) && colpoNemico.getX() <= (px + 10)) {
+            if (colpoNemico.getY() >= py && colpoNemico.getY() <= py + 10) {
                 player.riceviDanno(20);
                 colpoNemico.distruggi();
             }
         }
     }
+}
+
+int GameEngine::getPunteggio() {
+    return punteggio;
 }

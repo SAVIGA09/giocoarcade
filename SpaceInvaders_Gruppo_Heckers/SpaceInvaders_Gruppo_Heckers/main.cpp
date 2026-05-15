@@ -8,6 +8,35 @@
 
 using namespace std;
 
+/*#include <iostream>
+#include "GameEngine.h"
+
+using namespace std;
+
+int main() {
+    //creazione dell'oggetto motore
+    GameEngine gioco;
+
+    //setup iniziale per gli alieni, posizioni e l'arena
+    gioco.inizializza();
+
+    //game Loop principale
+    while (!gioco.isTerminato()) {
+        
+
+        gioco.eseguiCiclo();          // Esegue i movimenti, le collisioni e la logica
+
+        
+    }
+
+    
+    cout << "--- GAME OVER ---" << endl;       //messaggio finale quando isTerminato() diventa true
+    cout << "Punteggio finale: " << gioco.getPunteggio() << endl;
+
+    system("pause"); 
+    return 0;
+}*/
+
 int main() {
 
     Navicella player(260, 125, 100, 10); // proserpio   
