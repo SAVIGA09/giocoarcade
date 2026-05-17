@@ -8,7 +8,7 @@
 
 using namespace std;
 
-/*#include <iostream>
+#include <iostream>
 #include <windows.h>
 #include "GameEngine.h"
 
@@ -59,9 +59,9 @@ int main() {
     system("pause");
     return 0;
 }
-}*/
+}
 
-int main() {
+/*int main() {
 
     Navicella player(260, 125, 100, 10); // proserpio   
     Nemico alieno(110, 100, 30, 30, "Alieno", 0); // io
@@ -145,7 +145,7 @@ int main() {
     }
     cout << "Fine del test" << endl;
     return 0;
-}
+}*/
 //ex parte mia
 /*#include <string>
 #include <windows.h>
