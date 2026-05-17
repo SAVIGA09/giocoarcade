@@ -29,14 +29,7 @@ int main() {
 
     while (!gioco.isTerminato()) {
 
-        // INPUT
-        // GetAsyncKeyState e' disponibile tramite <windows.h>
-        // Ritorna un valore != 0 se il tasto e' premuto in quel momento
-
-        if (GetAsyncKeyState(VK_LEFT) & 0x8000) {   // freccia sinistra
-            // il movimento del player e' gestito dentro eseguiCiclo -> player.aggiorna()
-            // ma possiamo richiamare direttamente il metodo se necessario
-        }
+        
 
         // CICLO DI GIOCO
         // eseguiCiclo() coordina internamente:
@@ -59,7 +52,7 @@ int main() {
     system("pause");
     return 0;
 }
-}
+
 
 /*int main() {
 

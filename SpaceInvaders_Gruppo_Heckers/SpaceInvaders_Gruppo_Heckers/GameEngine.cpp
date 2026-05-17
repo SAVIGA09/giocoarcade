@@ -5,12 +5,12 @@
 using namespace std;
 
 
-// costruttore chiama semplicemente inizializza()
+//chiama semplicemente inizializza()
 GameEngine::GameEngine() {
     inizializza();
 }
 
-//resetta tutto per una nuova partita o livello
+// resetta tutto per una nuova partita o livello
 void GameEngine::inizializza() {
     this->arena = Arena(640, 480);
     this->player = Navicella(320, 440, 100, 10);
@@ -19,7 +19,7 @@ void GameEngine::inizializza() {
     int indice = 0;
     for (int r = 0; r < 5; r++) {
         for (int c = 0; c < 11; c++) {
-            this->alieni[indice] = Nemico(100 + (c * 40), 50 + (r * 30), 30, 30, "Alieno", 10);
+            this->alieni[indice] = Nemico(100 + (c * 40), 50 + (r * 30), 30, 30, "Alieno", Color::White);
             indice++;
         }
     }
@@ -51,8 +51,7 @@ bool GameEngine::isTerminato() {
     return false;
 }
 
-//è il cuore del gioco, chiamato nel loop del main
-// Coordina: input, movimenti, collisioni, grafica
+//è il cuore del gioco, chiamato nel loop del main e coordina: input, movimenti, collisioni, grafica
 void GameEngine::eseguiCiclo() {
     if (!giocoInCorso) {
         return;
@@ -87,7 +86,7 @@ void GameEngine::eseguiCiclo() {
 void GameEngine::muoviOggetti() {
     // Muovi tutti gli alieni orizzontalmente
     for (int i = 0; i < 55; i++) {
-        if (alieni[i].isAttiva()) {
+        if (!alieni[i].VivoOMorto()) {
             alieni[i].Spostati((int)(direzioneAlieni * velocitaAlieni), 0);
         }
     }
@@ -105,7 +104,7 @@ void GameEngine::muoviOggetti() {
     }
 }
 
-// GESTISCISPARONEMICI: un alieno casuale spara
+// GESTISCISPARONEMICI (privato): un alieno casuale spara
 // rand() e' gia' disponibile tramite <windows.h>
 void GameEngine::gestisciSparoNemici() {
     // Cerca un slot libero nell'array dei proiettili nemici
@@ -123,7 +122,7 @@ void GameEngine::gestisciSparoNemici() {
     // Con probabilita' ~10% ogni ciclo, un alieno casuale spara
     if (rand() % 10 == 0) {
         int tentativo = rand() % 55;
-        if (alieni[tentativo].isAttiva()) {
+        if (!alieni[tentativo].VivoOMorto()) {
             colpiNemici[slotLibero] = Proiettile(
                 alieni[tentativo].getX() + 15, // centro dell'alieno
                 alieni[tentativo].getY() + 30, // appena sotto l'alieno
@@ -133,12 +132,12 @@ void GameEngine::gestisciSparoNemici() {
     }
 }
 
-// inverte direzione e fa scendere gli alieni
+//inverte direzione e fa scendere gli alieni
 void GameEngine::controllaBordi() {
     bool cambioDirezione = false;
 
     for (int i = 0; i < 55; i++) {
-        if (alieni[i].isAttiva()) {
+        if (!alieni[i].VivoOMorto()) {
             if (alieni[i].getX() > arena.getLimiteDestro() - 40 ||
                 alieni[i].getX() < arena.getLimiteSinistro() + 10) {
                 cambioDirezione = true;
@@ -154,7 +153,7 @@ void GameEngine::controllaBordi() {
             alieni[i].Spostati(0, 20); // fai scendere tutti di 20 pixel
 
             // Se un alieno ha raggiunto il player, il gioco e' perso
-            if (alieni[i].isAttiva() && alieni[i].getY() > 400) {
+            if (!alieni[i].VivoOMorto() && alieni[i].getY() > 400) {
                 giocoInCorso = false;
             }
         }
@@ -164,12 +163,11 @@ void GameEngine::controllaBordi() {
     }
 }
 
-
-// verificaFineLivello: controlla se tutti i nemici sono stati eliminati
+//qua si controlla se tutti i nemici sono stati eliminati
 void GameEngine::verificaFineLivello() {
     int alieniVivi = 0;
     for (int i = 0; i < 55; i++) {
-        if (alieni[i].isAttiva()) {
+        if (!alieni[i].VivoOMorto()) {
             alieniVivi++;
         }
     }
@@ -181,18 +179,18 @@ void GameEngine::verificaFineLivello() {
 }
 
 
-//questa funzione rileva e risolve tutti gli scontri
+//rileva e risolve tutti gli scontri
 void GameEngine::gestisciCollisioni() {
     // 1) Colpo del player contro alieni
     if (colpoPlayer.isAttivo()) {
         for (int i = 0; i < 55; i++) {
-            if (alieni[i].isAttiva()) {
+            if (!alieni[i].VivoOMorto()) {
                 if (colpoPlayer.getX() >= alieni[i].getX() &&
                     colpoPlayer.getX() <= alieni[i].getX() + 30 &&
                     colpoPlayer.getY() >= alieni[i].getY() &&
                     colpoPlayer.getY() <= alieni[i].getY() + 30) {
 
-                    alieni[i].distruggi();
+                    alieni[i].GotHit();
                     colpoPlayer.distruggi();
                     punteggio += 10;
                     break;
@@ -238,7 +236,7 @@ void GameEngine::gestisciCollisioni() {
     }
 }
 
-//qua si invia i dati aggiornati alla visualizzazione
+//invia i dati aggiornati alla visualizzazione
 void GameEngine::aggiornaGrafica() {
     system("cls"); // pulisce lo schermo
 
@@ -246,13 +244,12 @@ void GameEngine::aggiornaGrafica() {
 
     int alieniVivi = 0;
     for (int i = 0; i < 55; i++) {
-        if (alieni[i].isAttiva()) alieniVivi++;
+        if (!alieni[i].VivoOMorto()) alieniVivi++;
     }
     cout << "Alieni rimasti: " << alieniVivi << endl;
 
-    // Qui andrebbero le chiamate alla vera libreria grafica
+    // Qui andrebbero le chiamate alla vera libreria grafica 
 }
-
 
 //è un getter per il punteggio finale
 int GameEngine::getPunteggio() {

@@ -3,7 +3,7 @@
 #include "Arena.h"
 #include "Navicella.h"
 #include "Nemico.h"
-#include "Proiettile.h"
+#include "proiettili.h"
 #include "Asteroidi.h"
 
 class GameEngine {
