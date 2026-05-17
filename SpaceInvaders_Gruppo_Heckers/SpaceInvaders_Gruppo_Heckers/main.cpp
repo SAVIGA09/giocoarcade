@@ -5,6 +5,7 @@
 #include "Nemico.h"    // Includo i file del gruppo
 #include "proiettili.h"
 #include "asteroidi.h"
+#include "GameEngine.h"
 
 using namespace std;
 
