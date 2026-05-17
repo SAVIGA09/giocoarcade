@@ -9,32 +9,56 @@
 using namespace std;
 
 /*#include <iostream>
+#include <windows.h>
 #include "GameEngine.h"
 
 using namespace std;
 
 int main() {
-    //creazione dell'oggetto motore
+
+    // Crea il motore di gioco: costruttore chiama gia' inizializza() internamente
     GameEngine gioco;
 
-    //setup iniziale per gli alieni, posizioni e l'arena
-    gioco.inizializza();
+    cout << "=== SPACE INVADERS - Gruppo Heckers ===" << endl;
+    cout << "Freccia SX/DX per muoversi, SPAZIO per sparare" << endl;
+    cout << "Premi un tasto per iniziare..." << endl;
+    system("pause");
 
-    //game Loop principale
+
+    // game loop principale continua finche' isTerminato() non diventa true (player distrutto oppure alieni arrivati in fondo)
+
     while (!gioco.isTerminato()) {
-        
 
-        gioco.eseguiCiclo();          // Esegue i movimenti, le collisioni e la logica
+        // INPUT
+        // GetAsyncKeyState e' disponibile tramite <windows.h>
+        // Ritorna un valore != 0 se il tasto e' premuto in quel momento
 
-        
+        if (GetAsyncKeyState(VK_LEFT) & 0x8000) {   // freccia sinistra
+            // il movimento del player e' gestito dentro eseguiCiclo -> player.aggiorna()
+            // ma possiamo richiamare direttamente il metodo se necessario
+        }
+
+        // CICLO DI GIOCO
+        // eseguiCiclo() coordina internamente:
+        //   1. player.aggiorna()         (input e cooldown)
+        //   2. muoviOggetti()            (sposta alieni e proiettili)
+        //   3. gestisciSparoNemici()     (sparo casuale degli alieni)
+        //   4. controllaBordi()          (rimbalzo e discesa alieni)
+        //   5. gestisciCollisioni()      (colpi, barriere, player)
+        //   6. verificaFineLivello()     (tutti gli alieni morti?)
+        //   7. aggiornaGrafica()         (stampa a schermo lo stato)
+        gioco.eseguiCiclo();
     }
 
-    
-    cout << "--- GAME OVER ---" << endl;       //messaggio finale quando isTerminato() diventa true
+ 
+    // FINE PARTITA
+    cout << endl;
+    cout << "=== GAME OVER ===" << endl;
     cout << "Punteggio finale: " << gioco.getPunteggio() << endl;
 
-    system("pause"); 
+    system("pause");
     return 0;
+}
 }*/
 
 int main() {
