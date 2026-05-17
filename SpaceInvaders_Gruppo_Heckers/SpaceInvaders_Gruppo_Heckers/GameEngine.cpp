@@ -238,7 +238,7 @@ void GameEngine::gestisciCollisioni() {
 
 //invia i dati aggiornati alla visualizzazione
 void GameEngine::aggiornaGrafica() {
-    system("cls"); // pulisce lo schermo
+
 
     cout << "Punteggio: " << punteggio << endl;
 
