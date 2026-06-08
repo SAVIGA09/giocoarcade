@@ -5,10 +5,52 @@
 #include "Nemico.h"    // Includo i file del gruppo
 #include "proiettili.h"
 #include "asteroidi.h"
+#include "GameEngine.h"
 
 using namespace std;
 
+
 int main() {
+
+    // Crea il motore di gioco: costruttore chiama gia' inizializza() internamente
+    GameEngine gioco;
+
+    cout << "=== SPACE INVADERS - Gruppo Heckers ===" << endl;
+    cout << "Freccia SX/DX per muoversi, SPAZIO per sparare" << endl;
+    cout << "Premi un tasto per iniziare..." << endl;
+    system("pause");
+
+
+    // game loop principale continua finche' isTerminato() non diventa true (player distrutto oppure alieni arrivati in fondo)
+
+    while (!gioco.isTerminato()) {
+
+        
+
+        // CICLO DI GIOCO
+        // eseguiCiclo() coordina internamente:
+        //   1. player.aggiorna()         (input e cooldown)
+        //   2. muoviOggetti()            (sposta alieni e proiettili)
+        //   3. gestisciSparoNemici()     (sparo casuale degli alieni)
+        //   4. controllaBordi()          (rimbalzo e discesa alieni)
+        //   5. gestisciCollisioni()      (colpi, barriere, player)
+        //   6. verificaFineLivello()     (tutti gli alieni morti?)
+        //   7. aggiornaGrafica()         (stampa a schermo lo stato)
+        gioco.eseguiCiclo();
+    }
+
+ 
+    // FINE PARTITA
+    cout << endl;
+    cout << "=== GAME OVER ===" << endl;
+    cout << "Punteggio finale: " << gioco.getPunteggio() << endl;
+
+    system("pause");
+    return 0;
+}
+
+
+/*int main() {
 
     Navicella player(260, 125, 100, 10); // proserpio   
     Nemico alieno(110, 100, 30, 30, "Alieno", 0); // io
@@ -92,7 +134,7 @@ int main() {
     }
     cout << "Fine del test" << endl;
     return 0;
-}
+}*/
 //ex parte mia
 /*#include <string>
 #include <windows.h>
