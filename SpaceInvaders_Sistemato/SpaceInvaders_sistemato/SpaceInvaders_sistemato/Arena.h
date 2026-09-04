@@ -3,6 +3,11 @@
 #include "Navicella.h"
 #include "Proiettile.h"
 
+enum MOVIMENTO
+{
+	DESTRA, SINISTRA
+};
+
 class Arena
 {
 private:
@@ -10,6 +15,10 @@ private:
 	int larghezza, altezza;
 	void setLarghezza(int larghezzaPX);
 	void setAltezza(int altezzaPX);
+
+	Navicella navicella;
+	Nemico nemico;
+	Proiettile proiettile;
 
 public:
 
@@ -22,23 +31,21 @@ public:
 	int getLarghezza();
 	int getAltezza();
 
-	//arena navicella
-	void trovaNavicellaX();
-	void trovaNavicellaY();
+	Navicella getNavicella();
+	Nemico getNemico();
+	Proiettile getProiettile();
 
-	bool spostaNavicella(int x, int y);
+	//arena navicella
+	bool spostaNavicella(MOVIMENTO direzione, int nPX);
 
 	//arena nemico
-	void trovaNemicoX();
-	void trovaNemicoY();
-
-	bool spostaNemico(int x, int y);
+	bool spostaNemico(MOVIMENTO direzione, int nPX);
 	bool controllaNavicellaColpita(Nemico nemico);
 
 	//arena proiettile
-	void trovaProiettileX();
-	void trovaProiettileY();
-
-	bool spostaProiettile();
+	bool spostaProiettile(int nPX);
 	bool controllaProiettileNemico(Nemico nemico);
+
+	//aggiorna
+	void aggiornaArena();
 };

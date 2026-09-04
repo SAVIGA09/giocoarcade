@@ -1,13 +1,16 @@
 #include <iostream>
+#include "GameEngine.h"
 #include "Display.h"
 
 using namespace std;
 
 int main()
 {
-	Display gioco1(800, 800, "SPACE_INVADERS");
+    // Inizializza il gioco creando una finestra di 800x600 pixel
+    GameEngine gioco(800, 600);
 
-	gioco1.aggiornaDisplay();
+    // Avvia il ciclo di gioco principale
+    gioco.run();
 
-	return 0;
+    return 0;
 }

@@ -1,18 +1,17 @@
 #include "GameEngine.h"
 
 GameEngine::GameEngine(int larghezzaPX, int altezzaPX)
+	: display(larghezzaPX, altezzaPX, "SPACE_INVADERS"), arena(larghezzaPX, altezzaPX)
 {
-	Display display(larghezzaPX, altezzaPX, "SPACE_INVADERS");
+
 }
 
 void GameEngine::run()
 {
-	while (display.isAperto())
+	while (this->display.isAperto())
 	{
-		display.aggiornaDisplay();
-
-		arena.update();
-
-		display.render(arena);
+		this->display.aggiornaDisplay();
+		this->arena.aggiornaArena();
+		this->display.render(this->arena);
 	}
 }

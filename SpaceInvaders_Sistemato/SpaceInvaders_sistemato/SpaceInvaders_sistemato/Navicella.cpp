@@ -1,0 +1,80 @@
+#include "Navicella.h"
+
+Navicella::Navicella(int posX, int posY, float larghezzaNavicella, float altezzaNavicella, int munizioni)
+{
+	this->posX = posX;
+	this->posY = posY;
+	this->integrita = 100;
+	this->nMunizioni = munizioni;
+	this->larghezzaNavicella = larghezzaNavicella;
+	this->altezzaNavicella = altezzaNavicella;
+	this->viva = true;
+}
+Navicella::~Navicella()
+{
+	this->distruggi();
+}
+
+void Navicella::distruggi()
+{
+	this->viva = false;
+	this->integrita = 0;
+	this->nMunizioni = 0;
+}
+
+sf::FloatRect Navicella::getHitbox() const
+{
+	return sf::FloatRect(this->posX, this->posY, this->larghezzaNavicella, this->altezzaNavicella);
+}
+
+void Navicella::muoviSinistra(int nPX)
+{
+	this->posX -= nPX;
+}
+void Navicella::muoviDestra(int nPX)
+{
+	this->posX += nPX;
+}
+
+int Navicella::getPosX()
+{
+	return this->posX;
+}
+int Navicella::getPosY()
+{
+	return this->posY;
+}
+
+void Navicella::riceviDanno(int nDanni)
+{
+	if (nDanni > this->getIntegrita())
+	{
+		this->distruggi();
+	}
+	if (nDanni <= 0)
+	{
+		return;
+	}
+
+	this->integrita -= nDanni;
+}
+int Navicella::getIntegrita()
+{
+	return this->integrita;
+}
+
+void Navicella::spara()
+{
+	if (this->nMunizioni > 0)
+	{
+		this->nMunizioni--;
+	}
+}
+void Navicella::ricarica(int quantita)
+{
+	this->nMunizioni += quantita;
+}
+int Navicella::getMunizioni()
+{
+	return this->nMunizioni;
+}

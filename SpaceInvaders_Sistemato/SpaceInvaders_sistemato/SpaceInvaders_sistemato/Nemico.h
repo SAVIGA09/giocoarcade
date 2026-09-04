@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 
 enum TIPO_ALIENO
 {
@@ -10,6 +11,10 @@ class Nemico
 private:
 
 	bool vivo = false;
+
+	int posX, posY;
+	int larghezzaNemico;
+	int altezzaNemico;
 	
 	TIPO_ALIENO tipo;
 
@@ -17,7 +22,7 @@ private:
 
 public:
 
-	Nemico(int posX, int posY, TIPO_ALIENO tipo);
+	Nemico(int posX, int posY, int larghezza, int altezza, TIPO_ALIENO tipo);
 
 	//movimento
 	void muoviDestra(int nPX);
@@ -26,8 +31,10 @@ public:
 	int getPosX();
 	int getPosY();
 
+	//hitbox
+	sf::FloatRect getHitbox() const; //restituisce la hitbox del nemico(x, y, larghezza, altezza)
+
 	//salute nemico
 	bool getStato();
 	void colpito();
-
 };

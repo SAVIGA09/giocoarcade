@@ -5,11 +5,12 @@ class GameEngine
 {
 private:
 
-
+	Display display;
+	Arena arena;
 
 public:
 
-	GameEngine();
+	GameEngine(int larghezzaPX, int altezzaPX);
 
 	void run();
 
