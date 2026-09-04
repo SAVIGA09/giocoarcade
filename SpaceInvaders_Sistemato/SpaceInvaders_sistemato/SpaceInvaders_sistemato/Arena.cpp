@@ -1,8 +1,30 @@
 #include "Arena.h"
 
 Arena::Arena(int larghezzaPX, int altezzaPX)
-	:navicella(larghezzaPX / 2, altezzaPX - 100, 50, 50, 10), nemico(larghezzaPX / 2, 50, 50, 50, graf1), proiettile(larghezzaPX / 2, altezzaPX - 100, 10, 20)
+	:navicella(0,0,0,0,0), nemico(0,0,0,0,graf1), proiettile(0,0,0,0, false)
 {
+	float centroX = larghezzaPX / 2, centroY = altezzaPX / 2;
+
+	int altezzaNavicella = altezzaPX / 10,
+		larghezzaNavicella = larghezzaPX / 10;
+
+	int altezzaNemico = altezzaPX / 10,
+		larghezzaNemico = larghezzaPX / 10;
+
+	int altezzaProiettile = altezzaPX / 10,
+		larghezzaProiettile = larghezzaPX / 10;
+
+	float metaNavicella = larghezzaNavicella / 2;
+	float xNavicella = centroX - metaNavicella, yNavicella = (centroY + (centroY / 2));
+
+	float xNemico = xNavicella, yNemico = (centroY / 4);
+
+	float xProiettile = xNavicella, yProiettile = yNavicella;
+
+	this->navicella = Navicella(xNavicella, yNavicella, larghezzaNavicella, altezzaNavicella, 20);
+	this->nemico = Nemico(xNemico, yNemico, larghezzaNemico, altezzaNemico, graf1);
+	this->proiettile = Proiettile(xProiettile, yProiettile, larghezzaProiettile, altezzaProiettile, true);
+
 	this->setLarghezza(larghezzaPX);
 	this->setAltezza(altezzaPX);
 }

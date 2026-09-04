@@ -13,11 +13,15 @@ private:
 	sf::RenderWindow schermo;
 
 	sf::Texture textureNavicella;
-	sf::Texture textureNemico;
+	sf::Texture textureNemico1;
+	sf::Texture textureNemico2;
+	sf::Texture textureNemico3;
 	sf::Texture textureProiettile;
 
 	sf::Sprite spriteNavicella;
-	sf::Sprite spriteNemico;
+	sf::Sprite spriteNemico1;
+	sf::Sprite spriteNemico2;
+	sf::Sprite spriteNemico3;
 	sf::Sprite spriteProiettile;
 
 public:

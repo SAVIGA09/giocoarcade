@@ -46,3 +46,8 @@ void Nemico::colpito()
 {
 	this->distruggi();
 }
+
+TIPO_ALIENO Nemico::getTipo()
+{
+	return this->tipo;
+}

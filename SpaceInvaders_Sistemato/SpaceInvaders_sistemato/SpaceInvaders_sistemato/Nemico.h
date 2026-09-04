@@ -37,4 +37,7 @@ public:
 	//salute nemico
 	bool getStato();
 	void colpito();
+
+	//tipo
+	TIPO_ALIENO getTipo();
 };

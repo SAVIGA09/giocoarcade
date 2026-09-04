@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
     // Inizializza il gioco creando una finestra di 800x600 pixel
-    GameEngine gioco(800, 600);
+    GameEngine gioco(1920, 1080);
 
     // Avvia il ciclo di gioco principale
     gioco.run();

@@ -1,12 +1,12 @@
 #include "Proiettile.h"
 
-Proiettile::Proiettile(float x, float y, int larghezza, int altezza)
+Proiettile::Proiettile(float x, float y, int larghezza, int altezza, bool esiste)
 {
 	this->x = x;
 	this->y = y;
 	this->larghezzaProiettile = larghezza;
 	this->altezzaProiettile = altezza;
-	this->esiste = true;
+	this->esiste = esiste;
 }
 
 void Proiettile::distruggi()
@@ -32,4 +32,9 @@ float Proiettile::getX()
 float Proiettile::getY()
 {
 	return this->y;
+}
+
+bool Proiettile::getStato()
+{
+	return this->esiste;
 }
