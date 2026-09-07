@@ -15,6 +15,8 @@ public:
 
 	GameEngine(int larghezzaPX, int altezzaPX);
 
+	void getPunteggio();
+
 	void run();
 
 };

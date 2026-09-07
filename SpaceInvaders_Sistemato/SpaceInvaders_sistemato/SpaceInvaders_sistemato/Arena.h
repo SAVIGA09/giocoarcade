@@ -20,6 +20,8 @@ private:
 	Nemico nemico;
 	Proiettile proiettile;
 
+	int punteggio = 0;
+
 public:
 
 	Arena(int larghezzaPX, int altezzaPX);
@@ -46,6 +48,9 @@ public:
 	void spara();
 	void spostaProiettile(int nPX);
 	bool controllaProiettileNemico(Nemico& nemico);
+
+	//punteggio
+	int getPunteggio();
 
 	//aggiorna
 	void aggiornaArena();

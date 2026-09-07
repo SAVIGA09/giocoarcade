@@ -27,6 +27,8 @@ Arena::Arena(int larghezzaPX, int altezzaPX)
 
 	this->setLarghezza(larghezzaPX);
 	this->setAltezza(altezzaPX);
+
+	//ciclo alieni
 }
 
 Navicella Arena::getNavicella()
@@ -156,6 +158,11 @@ bool Arena::controllaProiettileNemico(Nemico& nemico)
 	return false;
 }
 
+int Arena::getPunteggio()
+{
+	return this->punteggio;
+}
+
 void Arena::aggiornaArena()
 {
 	if (!this->proiettile.getStato())
@@ -169,6 +176,23 @@ void Arena::aggiornaArena()
 		if (this->controllaProiettileNemico(this->nemico))
 		{
 			this->proiettile.resetY(this->navicella.getPosY());
+
+			TIPO_ALIENO tipo = this->nemico.getTipo();
+			
+			switch (tipo)
+			{
+			case graf1:
+				this->punteggio += 20;
+				break;
+			case graf2:
+				this->punteggio += 35;
+				break;
+			case graf3:
+				this->punteggio += 50;
+				break;
+			default:
+				break;
+			}
 		}
 
 		if ((this->proiettile.getY()-10) <= 0)

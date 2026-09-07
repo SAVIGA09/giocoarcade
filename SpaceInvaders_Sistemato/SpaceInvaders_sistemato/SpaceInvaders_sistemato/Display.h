@@ -17,12 +17,19 @@ private:
 	sf::Texture textureNemico2;
 	sf::Texture textureNemico3;
 	sf::Texture textureProiettile;
+	sf::Texture textureUFO;
 
 	sf::Sprite spriteNavicella;
 	sf::Sprite spriteNemico1;
 	sf::Sprite spriteNemico2;
 	sf::Sprite spriteNemico3;
 	sf::Sprite spriteProiettile;
+	sf::Sprite spriteUFO;
+
+	//font
+
+	sf::Font font;
+	sf::Text testoPunteggio;
 
 public:
 

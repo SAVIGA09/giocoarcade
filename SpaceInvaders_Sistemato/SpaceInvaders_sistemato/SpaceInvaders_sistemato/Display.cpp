@@ -13,12 +13,23 @@ Display::Display(int larghezzaPX, int altezzaPX, string nomeDisplay)
 	this->textureNemico2.loadFromFile("assets/nemico2.png");
 	this->textureNemico3.loadFromFile("assets/nemico3.png");
 	this->textureProiettile.loadFromFile("assets/proiettile.png");
+	this->textureUFO.loadFromFile("assets/UFO.png");
 
 	this->spriteNavicella.setTexture(this->textureNavicella);
 	this->spriteNemico1.setTexture(this->textureNemico1);
 	this->spriteNemico2.setTexture(this->textureNemico2);
 	this->spriteNemico3.setTexture(this->textureNemico3);
 	this->spriteProiettile.setTexture(this->textureProiettile);
+	this->spriteUFO.setTexture(this->textureUFO);
+
+	//font
+	if (this->font.loadFromFile("assets/PressStart2P-Regular.ttf"))
+	{
+		this->testoPunteggio.setFont(this->font);
+		this->testoPunteggio.setCharacterSize(24);
+		this->testoPunteggio.setFillColor(sf::Color::White);
+		this->testoPunteggio.setPosition(20.0f, 10.0f);
+	}	
 }
 
 Display::~Display()
@@ -119,6 +130,11 @@ void Display::render(Arena& arena)
 			}
 		}
 	}
+
+	//punteggio
+	this->testoPunteggio.setString("SCORE: " + to_string(arena.getPunteggio()));
+	this->schermo.draw(this->testoPunteggio);
+
 	this->schermo.display();
 }
 
