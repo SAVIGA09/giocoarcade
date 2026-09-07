@@ -23,6 +23,8 @@ public:
 	//stato proiettile
 	float getX();
 	float getY();
+	float getAltezza();
+	float getLarghezza();
 
 	void muoviSu(int nPX);
 	void muoviX(float x);

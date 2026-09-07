@@ -31,6 +31,9 @@ public:
 	int getPosX();
 	int getPosY();
 
+	float getAltezza();
+	float getLarghezza();
+
 	//hitbox
 	sf::FloatRect getHitbox() const; //restituisce la hitbox del nemico(x, y, larghezza, altezza)
 

@@ -59,8 +59,10 @@ void Display::render(Arena& arena)
 
 		if (sizeProiettile.x > 0 && sizeProiettile.y > 0)
 		{
-			float scalaUniforme = hitboxProiettile.height / sizeProiettile.y;
-			this->spriteProiettile.setScale(scalaUniforme, scalaUniforme);
+			float scalaX = (float)proiettile.getLarghezza() / sizeProiettile.x;
+			//float scalaY = (float)proiettile.getAltezza() / sizeProiettile.y;
+
+			this->spriteProiettile.setScale(scalaX, scalaX);
 		}
 
 		this->spriteProiettile.setPosition(proiettile.getX(), proiettile.getY());
@@ -74,8 +76,10 @@ void Display::render(Arena& arena)
 
 	if (sizeNavicella.x > 0 && sizeNavicella.y > 0)
 	{
-		float scalaUniforme = hitboxNavicella.height / sizeNavicella.y;
-		this->spriteNavicella.setScale(scalaUniforme, scalaUniforme);
+		float scalaX = (float)navicella.getLarghezza() / sizeNavicella.x;
+		//float scalaY = (float)navicella.getAltezza() / sizeNavicella.y;
+
+		this->spriteNavicella.setScale(scalaX, scalaX);
 	}
 
 	this->spriteNavicella.setPosition(navicella.getPosX(), navicella.getPosY());
@@ -106,22 +110,23 @@ void Display::render(Arena& arena)
 
 		if (sizeNemico.x > 0 && sizeNemico.y > 0)
 		{
-			float scalaUniforme = hitboxNemico.height / sizeNemico.y;
+			float scalaX = (float)nemico.getLarghezza() / sizeNemico.x;
+			//float scalaY = (float)nemico.getAltezza() / sizeNemico.y;
 
 			switch (nemico.getTipo())
 			{
 			case graf1:
-				this->spriteNemico1.setScale(scalaUniforme, scalaUniforme);
+				this->spriteNemico1.setScale(scalaX, scalaX);
 				this->spriteNemico1.setPosition(nemico.getPosX(), nemico.getPosY());
 				this->schermo.draw(this->spriteNemico1);
 				break;
 			case graf2:
-				this->spriteNemico2.setScale(scalaUniforme, scalaUniforme);
+				this->spriteNemico2.setScale(scalaX, scalaX);
 				this->spriteNemico2.setPosition(nemico.getPosX(), nemico.getPosY());
 				this->schermo.draw(this->spriteNemico2);
 				break;
 			case graf3:
-				this->spriteNemico3.setScale(scalaUniforme, scalaUniforme);
+				this->spriteNemico3.setScale(scalaX, scalaX);
 				this->spriteNemico3.setPosition(nemico.getPosX(), nemico.getPosY());
 				this->schermo.draw(this->spriteNemico3);
 				break;

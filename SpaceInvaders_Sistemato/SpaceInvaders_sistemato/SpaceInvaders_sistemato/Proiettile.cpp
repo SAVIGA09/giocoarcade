@@ -16,7 +16,11 @@ void Proiettile::distruggi()
 
 sf::FloatRect Proiettile::getHitbox() const
 {
-	return sf::FloatRect(this->x, this->y, this->larghezzaProiettile, this->altezzaProiettile);
+	float percRid = 0.2f;
+
+	float margineX = this->larghezzaProiettile * percRid, margineY = this->altezzaProiettile * percRid;
+
+	return sf::FloatRect(this->x + margineX, this->y + margineY, this->larghezzaProiettile - (margineX * 2.0f), this->altezzaProiettile - (margineY * 2.0f));
 }
 
 void Proiettile::colpisci(Nemico& nemico)
@@ -32,6 +36,16 @@ float Proiettile::getX()
 float Proiettile::getY()
 {
 	return this->y;
+}
+
+float Proiettile::getAltezza()
+{
+	return this->altezzaProiettile;
+}
+
+float Proiettile::getLarghezza()
+{
+	return this->larghezzaProiettile;
 }
 
 void Proiettile::muoviSu(int nPX)

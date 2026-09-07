@@ -24,7 +24,11 @@ void Navicella::distruggi()
 
 sf::FloatRect Navicella::getHitbox() const
 {
-	return sf::FloatRect(this->posX, this->posY, this->larghezzaNavicella, this->altezzaNavicella);
+	float percRid = 0.2f;
+
+	float margineX = this->larghezzaNavicella * percRid, margineY = this->altezzaNavicella * percRid;
+
+	return sf::FloatRect(this->posX + margineX, this->posY + margineY, this->larghezzaNavicella - (margineX * 2.0f), this->altezzaNavicella - (margineY * 2.0f));
 }
 
 void Navicella::muoviSinistra(int nPX)
@@ -43,6 +47,15 @@ int Navicella::getPosX()
 int Navicella::getPosY()
 {
 	return this->posY;
+}
+
+float Navicella::getLarghezza()
+{
+	return this->larghezzaNavicella;
+}
+float Navicella::getAltezza()
+{
+	return this->altezzaNavicella;
 }
 
 void Navicella::riceviDanno(int nDanni)

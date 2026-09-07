@@ -24,6 +24,15 @@ int Nemico::getPosY()
 	return this->posY;
 }
 
+float Nemico::getAltezza()
+{
+	return this->altezzaNemico;
+}
+float Nemico::getLarghezza()
+{
+	return this->larghezzaNemico;
+}
+
 void Nemico::muoviSinistra(int nPX)
 {
 	this->posX -= nPX;
@@ -35,7 +44,11 @@ void Nemico::muoviDestra(int nPX)
 
 sf::FloatRect Nemico::getHitbox() const
 {
-	return sf::FloatRect(this->posX, this->posY, this->larghezzaNemico, this->altezzaNemico);
+	float percRid = 0.2f;
+
+	float margineX = this->larghezzaNemico * percRid, margineY = this->altezzaNemico * percRid;
+
+	return sf::FloatRect(this->posX + margineX, this->posY + margineY, this->larghezzaNemico - (margineX * 2.0f), this->altezzaNemico - (margineY * 2.0f));
 }
 
 bool Nemico::getStato()

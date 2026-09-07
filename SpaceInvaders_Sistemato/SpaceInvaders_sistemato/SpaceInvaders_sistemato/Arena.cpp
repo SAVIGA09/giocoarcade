@@ -3,26 +3,27 @@
 Arena::Arena(int larghezzaPX, int altezzaPX)
 	:navicella(0,0,0,0,0), nemico(0,0,0,0,graf1), proiettile(0,0,0,0, false)
 {
-	float centroX = larghezzaPX / 2, centroY = altezzaPX / 2;
+	float centroX = larghezzaPX / 2.0f, centroY = altezzaPX / 2.0f;
 
-	int altezzaNavicella = altezzaPX / 10,
-		larghezzaNavicella = larghezzaPX / 10;
+	int altezzaNavicella = altezzaPX / 20,
+		larghezzaNavicella = larghezzaPX / 20;
 
-	int altezzaNemico = altezzaPX / 10,
-		larghezzaNemico = larghezzaPX / 10;
+	int altezzaNemico = altezzaPX / 20,
+		larghezzaNemico = larghezzaPX / 20;
 
-	int altezzaProiettile = altezzaPX / 10,
-		larghezzaProiettile = larghezzaPX / 10;
+	int altezzaProiettile = altezzaPX / 25,
+		larghezzaProiettile = larghezzaPX / 40;
 
-	float metaNavicella = larghezzaNavicella / 2;
-	float xNavicella = centroX - metaNavicella, yNavicella = (centroY + (centroY / 2));
+	float xNavicella = centroX - (larghezzaNavicella / 2.0f), yNavicella = (centroY + (centroY / 2.0f));
 
-	float xNemico = xNavicella, yNemico = (centroY / 4);
+	float xNemico = centroX - (larghezzaNemico / 2.0f), yNemico = centroY / 4.0f;
 
-	float xProiettile = xNavicella, yProiettile = yNavicella;
+	float centroX_Nav = xNavicella + (larghezzaNavicella / 2.0f);
+
+	float xProiettile = centroX_Nav - (larghezzaProiettile / 2.0f), yProiettile = yNavicella - altezzaProiettile;
 
 	this->navicella = Navicella(xNavicella, yNavicella, larghezzaNavicella, altezzaNavicella, 20);
-	this->nemico = Nemico(xNemico, yNemico, larghezzaNemico, altezzaNemico, graf1);
+	this->nemico = Nemico(xNemico, yNemico, larghezzaNemico, altezzaNemico, graf3);
 	this->proiettile = Proiettile(xProiettile, yProiettile, larghezzaProiettile, altezzaProiettile, false);
 
 	this->setLarghezza(larghezzaPX);
@@ -128,7 +129,11 @@ void Arena::spara()
 {
 	if (!this->proiettile.getStato())
 	{
-		this->proiettile.resetY(this->navicella.getPosY());
+		float centroXNavicella = this->navicella.getPosX() + (this->navicella.getLarghezza() / 2.0f);
+		float xSpawProiettile = centroXNavicella - (this->proiettile.getLarghezza() / 2.0f);
+
+		this->proiettile.muoviX(xSpawProiettile);
+		this->proiettile.resetY(this->navicella.getPosY() - this->proiettile.getAltezza());
 		this->proiettile.changeStato();
 	}
 }

@@ -25,6 +25,8 @@ public:
 	
 	int getPosX();
 	int getPosY();
+	float getLarghezza();
+	float getAltezza();
 
 	//hitbox
 	sf::FloatRect getHitbox() const; //restituisce la hitbox della navicella(x, y, larghezza, altezza)
