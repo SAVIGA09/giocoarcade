@@ -36,6 +36,9 @@
     <ClCompile Include="Display.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Tastiera.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -54,6 +57,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Display.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Tastiera.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

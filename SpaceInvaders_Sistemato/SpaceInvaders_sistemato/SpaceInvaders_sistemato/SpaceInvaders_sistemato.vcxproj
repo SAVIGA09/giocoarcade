@@ -133,6 +133,7 @@
     <ClCompile Include="Navicella.cpp" />
     <ClCompile Include="Nemico.cpp" />
     <ClCompile Include="Proiettile.cpp" />
+    <ClCompile Include="Tastiera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arena.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Navicella.h" />
     <ClInclude Include="Nemico.h" />
     <ClInclude Include="Proiettile.h" />
+    <ClInclude Include="Tastiera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

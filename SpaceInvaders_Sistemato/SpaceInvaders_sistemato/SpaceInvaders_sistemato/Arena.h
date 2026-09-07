@@ -43,6 +43,7 @@ public:
 	bool controllaNavicellaColpita(Nemico nemico);
 
 	//arena proiettile
+	void spara();
 	bool spostaProiettile(int nPX);
 	bool controllaProiettileNemico(Nemico nemico);
 

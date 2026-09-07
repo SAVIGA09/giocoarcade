@@ -24,6 +24,12 @@ public:
 	float getX();
 	float getY();
 
+	void muoviSu(int nPX);
+	void muoviX(float x);
+	void resetY(float y);
+
+	void changeStato(); //cambia lo stato del proiettile da true a false o viceversa
+
 	sf::FloatRect getHitbox() const; //restituisce la hitbox del proiettile(x, y, larghezza, altezza)
 
 	bool getStato();

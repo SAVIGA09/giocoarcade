@@ -90,7 +90,7 @@ void Display::render(Arena& arena)
 		default:
 			break;
 		}
-		
+
 		sf::FloatRect hitboxNemico = nemico.getHitbox();
 
 		if (sizeNemico.x > 0 && sizeNemico.y > 0)
@@ -116,7 +116,7 @@ void Display::render(Arena& arena)
 				break;
 			default:
 				break;
-			}	
+			}
 		}
 	}
 	this->schermo.display();

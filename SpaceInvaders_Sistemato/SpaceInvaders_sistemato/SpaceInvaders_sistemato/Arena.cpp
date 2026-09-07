@@ -23,7 +23,7 @@ Arena::Arena(int larghezzaPX, int altezzaPX)
 
 	this->navicella = Navicella(xNavicella, yNavicella, larghezzaNavicella, altezzaNavicella, 20);
 	this->nemico = Nemico(xNemico, yNemico, larghezzaNemico, altezzaNemico, graf1);
-	this->proiettile = Proiettile(xProiettile, yProiettile, larghezzaProiettile, altezzaProiettile, true);
+	this->proiettile = Proiettile(xProiettile, yProiettile, larghezzaProiettile, altezzaProiettile, false);
 
 	this->setLarghezza(larghezzaPX);
 	this->setAltezza(altezzaPX);
@@ -64,7 +64,109 @@ int Arena::getLarghezza()
 	return this->larghezza;
 }
 
+bool Arena::spostaNavicella(MOVIMENTO direzione, int nPX)
+{
+	switch (direzione)
+	{
+	case DESTRA:
+		if ((this->navicella.getPosX() + (this->navicella.getHitbox().width/1.5)) < this->larghezza)
+		{
+			this->navicella.muoviDestra(nPX);
+			return true;
+		}
+		return false;
+		break;
+	case SINISTRA:
+		if (this->navicella.getPosX() > 0)
+		{
+			this->navicella.muoviSinistra(nPX);
+			return true;
+		}
+		return false;
+		break;
+	default:
+		break;
+	}
+}
+
+bool Arena::spostaNemico(MOVIMENTO direzione, int nPX)
+{
+	switch (direzione)
+	{
+	case DESTRA:
+		if (this->nemico.getPosX() < this->larghezza)
+		{
+			this->nemico.muoviDestra(nPX);
+			return true;
+		}
+		return false;
+		break;
+	case SINISTRA:
+		if (this->nemico.getPosX() > 0)
+		{
+			this->nemico.muoviSinistra(nPX);
+			return true;
+		}
+		return false;
+		break;
+	default:
+		break;
+	}
+}
+
+bool Arena::spostaProiettile(int nPX)
+{
+	if (this->proiettile.getY() > 0)
+	{
+		this->proiettile.muoviSu(nPX);
+		return true;
+	}
+	return false;
+}
+
+void Arena::spara()
+{
+	if (this->proiettile.getStato() == false)
+	{
+		this->proiettile.changeStato();
+	}	
+}
+
+bool Arena::controllaNavicellaColpita(Nemico nemico)
+{
+	if (this->navicella.getHitbox().intersects(nemico.getHitbox()))
+	{
+		this->navicella.riceviDanno(35);
+		return true;
+	}
+	return false;
+}
+
+bool Arena::controllaProiettileNemico(Nemico nemico)
+{
+	if (this->proiettile.getHitbox().intersects(nemico.getHitbox()))
+	{
+		this->proiettile.colpisci(nemico);
+		return true;
+	}
+	return false;
+}
+
 void Arena::aggiornaArena()
 {
+	if (this->proiettile.getStato() == true && this->proiettile.getY() > 0)
+	{
+		this->spostaProiettile(10);
 
+		controllaNavicellaColpita(this->nemico);
+
+		controllaProiettileNemico(this->nemico);
+
+		if (this->proiettile.getY() <= 0)
+		{
+			this->proiettile.muoviX(this->navicella.getPosX());
+			this->proiettile.resetY(this->navicella.getPosY());
+			this->proiettile.changeStato();
+		}
+	}
 }

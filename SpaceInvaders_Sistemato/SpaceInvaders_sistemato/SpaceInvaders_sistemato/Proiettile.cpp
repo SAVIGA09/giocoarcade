@@ -34,6 +34,33 @@ float Proiettile::getY()
 	return this->y;
 }
 
+void Proiettile::muoviSu(int nPX)
+{
+	this->y -= nPX;
+}
+
+void Proiettile::changeStato()
+{
+	if (this->esiste)
+	{
+		this->esiste = false;
+	}
+	if (!this->esiste)
+	{
+		this->esiste = true;
+	}
+}
+
+void Proiettile::muoviX(float x)
+{
+	this->x = x;
+}
+
+void Proiettile::resetY(float y)
+{
+	this->y = y;
+}
+
 bool Proiettile::getStato()
 {
 	return this->esiste;
