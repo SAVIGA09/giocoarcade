@@ -19,7 +19,7 @@ sf::FloatRect Proiettile::getHitbox() const
 	return sf::FloatRect(this->x, this->y, this->larghezzaProiettile, this->altezzaProiettile);
 }
 
-void Proiettile::colpisci(Nemico nemico)
+void Proiettile::colpisci(Nemico& nemico)
 {
 	this->distruggi();
 	nemico.colpito();
@@ -41,14 +41,7 @@ void Proiettile::muoviSu(int nPX)
 
 void Proiettile::changeStato()
 {
-	if (this->esiste)
-	{
-		this->esiste = false;
-	}
-	if (!this->esiste)
-	{
-		this->esiste = true;
-	}
+	this->esiste = !this->esiste;
 }
 
 void Proiettile::muoviX(float x)

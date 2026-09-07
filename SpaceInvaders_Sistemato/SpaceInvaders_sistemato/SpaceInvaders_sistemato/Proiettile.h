@@ -18,7 +18,7 @@ public:
 	Proiettile(float x, float y, int larghezza, int altezza, bool esiste);
 
 	//colpisce il nemico
-	void colpisci(Nemico nemico);
+	void colpisci(Nemico& nemico);
 
 	//stato proiettile
 	float getX();

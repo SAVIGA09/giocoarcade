@@ -2,7 +2,7 @@
 
 Tastiera::Tastiera()
 {
-	this->tastoSpara = sf::Keyboard::Up;
+	this->tastoSpara = sf::Keyboard::Space;
 	this->tastoDestra = sf::Keyboard::Right;
 	this->tastoSinistra = sf::Keyboard::Left;
 }

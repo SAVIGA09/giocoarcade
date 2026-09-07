@@ -114,25 +114,24 @@ bool Arena::spostaNemico(MOVIMENTO direzione, int nPX)
 	}
 }
 
-bool Arena::spostaProiettile(int nPX)
+void Arena::spostaProiettile(int nPX)
 {
 	if (this->proiettile.getY() > 0)
 	{
 		this->proiettile.muoviSu(nPX);
-		return true;
 	}
-	return false;
 }
 
 void Arena::spara()
 {
-	if (this->proiettile.getStato() == false)
+	if (!this->proiettile.getStato())
 	{
+		this->proiettile.resetY(this->navicella.getPosY());
 		this->proiettile.changeStato();
-	}	
+	}
 }
 
-bool Arena::controllaNavicellaColpita(Nemico nemico)
+bool Arena::controllaNavicellaColpita(Nemico& nemico)
 {
 	if (this->navicella.getHitbox().intersects(nemico.getHitbox()))
 	{
@@ -142,8 +141,13 @@ bool Arena::controllaNavicellaColpita(Nemico nemico)
 	return false;
 }
 
-bool Arena::controllaProiettileNemico(Nemico nemico)
+bool Arena::controllaProiettileNemico(Nemico& nemico)
 {
+	if (!nemico.getStato())
+	{
+		return false;
+	}
+
 	if (this->proiettile.getHitbox().intersects(nemico.getHitbox()))
 	{
 		this->proiettile.colpisci(nemico);
@@ -154,19 +158,32 @@ bool Arena::controllaProiettileNemico(Nemico nemico)
 
 void Arena::aggiornaArena()
 {
-	if (this->proiettile.getStato() == true && this->proiettile.getY() > 0)
+	if (!this->proiettile.getStato())
 	{
-		this->spostaProiettile(10);
+		this->proiettile.muoviX(this->navicella.getPosX());
+		this->proiettile.resetY(this->navicella.getPosY());
+	}
 
-		controllaNavicellaColpita(this->nemico);
-
-		controllaProiettileNemico(this->nemico);
-
-		if (this->proiettile.getY() <= 0)
+	else
+	{
+		if (this->controllaProiettileNemico(this->nemico))
 		{
-			this->proiettile.muoviX(this->navicella.getPosX());
 			this->proiettile.resetY(this->navicella.getPosY());
+		}
+
+		if ((this->proiettile.getY()-10) <= 0)
+		{
 			this->proiettile.changeStato();
+			this->proiettile.resetY(this->navicella.getPosY());			
+		}
+		else
+		{
+			this->proiettile.muoviSu(10);
+		}
+
+		if (this->controllaNavicellaColpita(this->nemico))
+		{
+			this->navicella.riceviDanno(35);
 		}
 	}
 }
