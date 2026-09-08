@@ -1,7 +1,6 @@
 #include "Arena.h"
 
 Arena::Arena(int larghezzaPX, int altezzaPX)
-	:navicella(0,0,0,0,0), nemico(0,0,0,0,graf1), proiettile(0,0,0,0, false)
 {
 	float centroX = larghezzaPX / 2.0f, centroY = altezzaPX / 2.0f;
 
@@ -16,29 +15,59 @@ Arena::Arena(int larghezzaPX, int altezzaPX)
 
 	float xNavicella = centroX - (larghezzaNavicella / 2.0f), yNavicella = (centroY + (centroY / 2.0f));
 
-	float xNemico = centroX - (larghezzaNemico / 2.0f), yNemico = centroY / 4.0f;
-
 	float centroX_Nav = xNavicella + (larghezzaNavicella / 2.0f);
 
 	float xProiettile = centroX_Nav - (larghezzaProiettile / 2.0f), yProiettile = yNavicella - altezzaProiettile;
 
 	this->navicella = Navicella(xNavicella, yNavicella, larghezzaNavicella, altezzaNavicella, 20);
-	this->nemico = Nemico(xNemico, yNemico, larghezzaNemico, altezzaNemico, graf3);
 	this->proiettile = Proiettile(xProiettile, yProiettile, larghezzaProiettile, altezzaProiettile, false);
 
 	this->setLarghezza(larghezzaPX);
 	this->setAltezza(altezzaPX);
 
+	//nemici
+	float spaziaturaX = larghezzaNemico * 1.3f;
+	float spaziaturaY = altezzaNemico * 1.2f;	
+
+	float larghezzaTotaleGriglia = 7 * spaziaturaX;
+	float startX = centroX - (larghezzaTotaleGriglia / 2.0f);
+	float startY = centroY / 4.0f;
+
 	//ciclo alieni
+
+	for (int r = 0; r < 3; r++)
+	{
+		for (int c = 0; c < 10; c++)
+		{
+			float posX = startX + (c * spaziaturaX);
+			float posY = startY + (r * spaziaturaY);
+
+			TIPO_ALIENO tipo;
+
+			if (r == 2)
+			{
+				tipo = graf1;
+			}
+			if (r == 1)
+			{
+				tipo = graf2;
+			}
+			if (r == 0)
+			{
+				tipo = graf3;
+			}
+			this->alieni[r][c] = Nemico(posX, posY, larghezzaNemico, altezzaNemico, tipo, destra);
+		}
+	}
 }
 
 Navicella Arena::getNavicella()
 {
 	return this->navicella;
 }
-Nemico Arena::getNemico()
+Nemico Arena::getNemico(int riga, int col)
 {
-	return this->nemico;
+	return this->alieni[riga][col];
 }
 Proiettile Arena::getProiettile()
 {
@@ -67,7 +96,7 @@ int Arena::getLarghezza()
 	return this->larghezza;
 }
 
-bool Arena::spostaNavicella(MOVIMENTO direzione, int nPX)
+void Arena::spostaNavicella(MOVIMENTO direzione, int nPX)
 {
 	switch (direzione)
 	{
@@ -75,45 +104,78 @@ bool Arena::spostaNavicella(MOVIMENTO direzione, int nPX)
 		if ((this->navicella.getPosX() + (this->navicella.getHitbox().width/1.5)) < this->larghezza)
 		{
 			this->navicella.muoviDestra(nPX);
-			return true;
 		}
-		return false;
 		break;
 	case SINISTRA:
 		if (this->navicella.getPosX() > 0)
 		{
 			this->navicella.muoviSinistra(nPX);
-			return true;
 		}
-		return false;
 		break;
 	default:
 		break;
 	}
 }
 
-bool Arena::spostaNemico(MOVIMENTO direzione, int nPX)
+void Arena::spostaNemico()
 {
-	switch (direzione)
+	bool cambiaDir = false;
+
+	for (int r = 0; r < 3; r++)
 	{
-	case DESTRA:
-		if (this->nemico.getPosX() < this->larghezza)
+		for (int c = 0; c < 10; c++)
 		{
-			this->nemico.muoviDestra(nPX);
-			return true;
+			if (!this->alieni[r][c].getStato())
+			{
+				continue;
+			}
+
+			int spostamento = 0;
+
+			DIREZIONE dir = this->alieni[r][c].getDirezione();
+
+			switch (dir)
+			{
+			case destra:
+				spostamento = 3;
+				break;
+			case sinistra:
+				spostamento = -3;
+				break;
+			default:
+				break;
+			}
+
+			int prossX = this->alieni[r][c].getPosX() + spostamento;
+
+			if ((prossX + this->alieni[r][c].getLarghezza() >= this->larghezza && this->alieni[r][c].getDirezione() == destra) || (prossX <= 0 && this->alieni[r][c].getDirezione() == sinistra))
+			{
+				cambiaDir = true;
+				break;
+			}
 		}
-		return false;
-		break;
-	case SINISTRA:
-		if (this->nemico.getPosX() > 0)
+		if (cambiaDir)
 		{
-			this->nemico.muoviSinistra(nPX);
-			return true;
+			break;
 		}
-		return false;
-		break;
-	default:
-		break;
+	}
+	for (int r = 0; r < 3; r++)
+	{
+		for (int c = 0; c < 10; c++)
+		{
+			if (!this->alieni[r][c].getStato())
+			{
+				continue;
+			}
+			if (cambiaDir)
+			{
+				this->alieni[r][c].invertiDirezioneEscendi();
+			}
+			else
+			{
+				this->alieni[r][c].muovi();
+			}
+		}
 	}
 }
 
@@ -138,11 +200,14 @@ void Arena::spara()
 	}
 }
 
-bool Arena::controllaNavicellaColpita(Nemico& nemico)
+bool Arena::controllaNemicoNavicella(Nemico& nemico)
 {
-	if (this->navicella.getHitbox().intersects(nemico.getHitbox()))
+	if (!nemico.getStato())
 	{
-		this->navicella.riceviDanno(35);
+		return false;
+	}
+	if (nemico.getHitbox().intersects(this->navicella.getHitbox()))
+	{
 		return true;
 	}
 	return false;
@@ -150,7 +215,7 @@ bool Arena::controllaNavicellaColpita(Nemico& nemico)
 
 bool Arena::controllaProiettileNemico(Nemico& nemico)
 {
-	if (!nemico.getStato())
+	if (!nemico.getStato() || !this->proiettile.getStato())
 	{
 		return false;
 	}
@@ -170,49 +235,66 @@ int Arena::getPunteggio()
 
 void Arena::aggiornaArena()
 {
-	if (!this->proiettile.getStato())
-	{
-		this->proiettile.muoviX(this->navicella.getPosX());
-		this->proiettile.resetY(this->navicella.getPosY());
-	}
+	this->spostaNemico();
 
-	else
+	for (int r = 0; r < 3; r++)
 	{
-		if (this->controllaProiettileNemico(this->nemico))
+		for (int c = 0; c < 10; c++)
 		{
-			this->proiettile.resetY(this->navicella.getPosY());
-
-			TIPO_ALIENO tipo = this->nemico.getTipo();
-			
-			switch (tipo)
+			if (this->controllaNemicoNavicella(this->alieni[r][c]))
 			{
-			case graf1:
-				this->punteggio += 20;
-				break;
-			case graf2:
-				this->punteggio += 35;
-				break;
-			case graf3:
-				this->punteggio += 50;
-				break;
-			default:
-				break;
+				this->navicella.riceviDanno(35);
+				this->alieni[r][c].colpito();
 			}
 		}
+	}
 
-		if ((this->proiettile.getY()-10) <= 0)
+	if (this->proiettile.getStato())
+	{
+		this->proiettile.muoviSu(10);
+
+		bool colpito = false;
+
+		for (int r = 0; r < 3 && !colpito; r++)
+		{
+			for (int c = 0; c < 10; c++)
+			{
+				if (this->controllaProiettileNemico(this->alieni[r][c]))
+				{
+					TIPO_ALIENO tipo = this->alieni[r][c].getTipo();
+
+					switch (tipo)
+					{
+					case graf1:
+						this->punteggio += 20;
+						break;
+					case graf2:
+						this->punteggio += 35;
+						break;
+					case graf3:
+						this->punteggio += 50;
+						break;
+					default:
+						break;
+					}
+
+					colpito = true;
+					break;
+				}
+			}
+		}
+		if (!colpito && this->proiettile.getY() <= 0)
 		{
 			this->proiettile.changeStato();
-			this->proiettile.resetY(this->navicella.getPosY());			
-		}
-		else
-		{
-			this->proiettile.muoviSu(10);
-		}
-
-		if (this->controllaNavicellaColpita(this->nemico))
-		{
-			this->navicella.riceviDanno(35);
 		}
 	}
+}
+
+bool Arena::controllaVittoria()
+{
+	if (this->punteggio >= 1015)
+	{
+		return true;
+	}
+	return false;
 }

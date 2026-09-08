@@ -1,5 +1,16 @@
 #include "Navicella.h"
 
+Navicella::Navicella()
+{
+	this->posX = 0;
+	this->posY = 0;
+	this->integrita = 100;
+	this->nMunizioni = 0;
+	this->larghezzaNavicella = 0;
+	this->altezzaNavicella = 0;
+	this->viva = true;
+}
+
 Navicella::Navicella(int posX, int posY, float larghezzaNavicella, float altezzaNavicella, int munizioni)
 {
 	this->posX = posX;
@@ -24,7 +35,7 @@ void Navicella::distruggi()
 
 sf::FloatRect Navicella::getHitbox() const
 {
-	float percRid = 0.2f;
+	float percRid = 0.05f;
 
 	float margineX = this->larghezzaNavicella * percRid, margineY = this->altezzaNavicella * percRid;
 

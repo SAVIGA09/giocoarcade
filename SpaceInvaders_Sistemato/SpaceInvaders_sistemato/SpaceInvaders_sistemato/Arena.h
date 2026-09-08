@@ -15,9 +15,10 @@ private:
 	int larghezza, altezza;
 	void setLarghezza(int larghezzaPX);
 	void setAltezza(int altezzaPX);
+	bool haVinto;
 
 	Navicella navicella;
-	Nemico nemico;
+	Nemico alieni[3][10];
 	Proiettile proiettile;
 
 	int punteggio = 0;
@@ -34,15 +35,15 @@ public:
 	int getAltezza();
 
 	Navicella getNavicella();
-	Nemico getNemico();
+	Nemico getNemico(int riga, int col);
 	Proiettile getProiettile();
 
 	//arena navicella
-	bool spostaNavicella(MOVIMENTO direzione, int nPX);
+	void spostaNavicella(MOVIMENTO direzione, int nPX);
 
 	//arena nemico
-	bool spostaNemico(MOVIMENTO direzione, int nPX);
-	bool controllaNavicellaColpita(Nemico& nemico);
+	void spostaNemico();
+	bool controllaNemicoNavicella(Nemico& nemico);
 
 	//arena proiettile
 	void spara();
@@ -51,6 +52,7 @@ public:
 
 	//punteggio
 	int getPunteggio();
+	bool controllaVittoria();
 
 	//aggiorna
 	void aggiornaArena();

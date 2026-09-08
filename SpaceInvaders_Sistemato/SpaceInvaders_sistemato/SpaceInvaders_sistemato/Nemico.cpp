@@ -1,6 +1,17 @@
 #include "Nemico.h"
 
-Nemico::Nemico(int posX, int posY, int larghezza, int altezza, TIPO_ALIENO tipo)
+Nemico::Nemico()
+{
+	this->posX = 0;
+	this->posY = 0;
+	this->larghezzaNemico = 0;
+	this->altezzaNemico = 0;
+	this->tipo = graf1;
+	this->vivo = true;
+	this->direzione = destra;
+}
+
+Nemico::Nemico(int posX, int posY, int larghezza, int altezza, TIPO_ALIENO tipo, DIREZIONE direzione)
 {
 	this->posX = posX;
 	this->posY = posY;
@@ -8,6 +19,7 @@ Nemico::Nemico(int posX, int posY, int larghezza, int altezza, TIPO_ALIENO tipo)
 	this->altezzaNemico = altezza;
 	this->tipo = tipo;
 	this->vivo = true;
+	this->direzione = direzione;
 }
 
 void Nemico::distruggi()
@@ -32,19 +44,39 @@ float Nemico::getLarghezza()
 {
 	return this->larghezzaNemico;
 }
-
-void Nemico::muoviSinistra(int nPX)
+DIREZIONE Nemico::getDirezione()
 {
-	this->posX -= nPX;
+	return this->direzione;
 }
-void Nemico::muoviDestra(int nPX)
+
+void Nemico::muovi()
 {
-	this->posX += nPX;
+	if (this->direzione == destra)
+	{
+		this->posX += this->velocita;
+	}
+	else if(this->direzione == sinistra)
+	{
+		this->posX -= this->velocita;
+	}	
+}
+
+void Nemico::invertiDirezioneEscendi()
+{
+	if (this->direzione == destra)
+	{
+		this->direzione = sinistra;
+	}
+	else
+	{
+		this->direzione = destra;
+	}	
+	this->posY += this->scendiY;
 }
 
 sf::FloatRect Nemico::getHitbox() const
 {
-	float percRid = 0.2f;
+	float percRid = 0.05f;
 
 	float margineX = this->larghezzaNemico * percRid, margineY = this->altezzaNemico * percRid;
 

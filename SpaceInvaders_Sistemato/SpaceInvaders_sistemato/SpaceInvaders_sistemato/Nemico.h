@@ -6,6 +6,11 @@ enum TIPO_ALIENO
 	graf1, graf2, graf3
 };
 
+enum DIREZIONE
+{
+	destra, sinistra
+};
+
 class Nemico
 {
 private:
@@ -15,24 +20,31 @@ private:
 	int posX, posY;
 	int larghezzaNemico;
 	int altezzaNemico;
-	
+
+	int velocita = 5;
+	int scendiY = 40;
+
 	TIPO_ALIENO tipo;
+
+	DIREZIONE direzione;
 
 	void distruggi();
 
 public:
 
-	Nemico(int posX, int posY, int larghezza, int altezza, TIPO_ALIENO tipo);
+	Nemico();
+	Nemico(int posX, int posY, int larghezza, int altezza, TIPO_ALIENO tipo, DIREZIONE direzione);
 
 	//movimento
-	void muoviDestra(int nPX);
-	void muoviSinistra(int nPX);
+	void muovi();
+	void invertiDirezioneEscendi();
 
 	int getPosX();
 	int getPosY();
 
 	float getAltezza();
 	float getLarghezza();
+	DIREZIONE getDirezione();
 
 	//hitbox
 	sf::FloatRect getHitbox() const; //restituisce la hitbox del nemico(x, y, larghezza, altezza)

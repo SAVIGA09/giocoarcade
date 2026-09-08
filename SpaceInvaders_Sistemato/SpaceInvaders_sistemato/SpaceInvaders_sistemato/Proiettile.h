@@ -15,6 +15,7 @@ private:
 
 public:
 
+	Proiettile();
 	Proiettile(float x, float y, int larghezza, int altezza, bool esiste);
 
 	//colpisce il nemico

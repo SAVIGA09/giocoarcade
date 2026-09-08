@@ -1,5 +1,14 @@
 #include "Proiettile.h"
 
+Proiettile::Proiettile()
+{
+	this->x = 0;
+	this->y = 0;
+	this->larghezzaProiettile = 0;
+	this->altezzaProiettile = 0;
+	this->esiste = false;
+}
+
 Proiettile::Proiettile(float x, float y, int larghezza, int altezza, bool esiste)
 {
 	this->x = x;

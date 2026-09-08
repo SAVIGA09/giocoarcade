@@ -12,8 +12,7 @@ void GameEngine::run()
 	{
 		this->tastiera.GestisciInput(this->arena);
 		this->arena.aggiornaArena();
-		this->display.aggiornaDisplay();
 		this->display.render(this->arena);
-		
+		this->display.aggiornaDisplay();
 	}
 }

@@ -30,6 +30,7 @@ private:
 
 	sf::Font font;
 	sf::Text testoPunteggio;
+	sf::Text testoVittoria;
 
 public:
 

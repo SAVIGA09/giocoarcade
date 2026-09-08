@@ -16,6 +16,8 @@ private:
 	void distruggi();
 
 public:
+
+	Navicella();
 	Navicella(int posX, int posY, float larghezzaNavicella, float altezzaNavicella, int munizioni);
 	~Navicella();
 
